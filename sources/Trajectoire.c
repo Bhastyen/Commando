@@ -148,7 +148,7 @@ double* gen_tab_trajectoire(double angle, double taille, int nb_changement){
             signe = 1;
         }
         
-        a += signe * (int) ((rand()/(double)(RAND_MAX))*(20-12)) % 360;
+        a += signe * (int) ((rand()/(double)(RAND_MAX))*(20-12)) % 360;   /* marche pas */
         t1 = (rand()/(double)(RAND_MAX))*(max-min)+min;
     }
         
@@ -157,10 +157,10 @@ double* gen_tab_trajectoire(double angle, double taille, int nb_changement){
     }
     
     
-    /*fprintf(stdout,"\n\n");
-    for (i=1; i<tab[0]; i++){
+    fprintf(stdout,"\n\n");
+    for (i=0; i<tab[0]; i++){
         fprintf(stdout,"%lf\n",tab[i]);
-    }*/
+    }
     
     return tab;
 

@@ -9,6 +9,7 @@
 
 
 Projectile* creer_projectile(Pos* pos, double angle){
+    double t[3] = {3.0, angle, 500.0};
 
     Projectile* p = (Projectile*) malloc(sizeof(Projectile));
     if (p == NULL){
@@ -28,7 +29,7 @@ Projectile* creer_projectile(Pos* pos, double angle){
     p->acceleration = 0.0;
     
     p->box = creer_box(p->pos, TAILLE_PROJECTILE, TAILLE_PROJECTILE, CERCLE);
-    p->trajet = creer_trajectoire_tab(p->pos->x, p->pos->y, gen_tab_trajectoire(angle, 400.0, 10));
+    p->trajet = creer_trajectoire_tab(p->pos->x, p->pos->y, t);  //gen_tab_trajectoire(angle, 500.0, 3)
     p->suivant = NULL;
     
     return p;
