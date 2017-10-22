@@ -1,50 +1,50 @@
 CC=gcc
 Lflags=`pkg-config --libs-only-l MLV`
 Oflags=-Wall `pkg-config --cflags MLV` `pkg-config --libs-only-other --libs-only-L MLV`
-fichier_o=utilitaire.o joueur.o Projectile.o env.o ennemi.o Position.o Vecteur.o Hitbox.o File.o Liste.o evenement.o Trajectoire.o
+fichier_o=sources/utilitaire.o sources/joueur.o sources/Projectile.o sources/env.o sources/ennemi.o sources/Position.o sources/Vecteur.o sources/Hitbox.o sources/File.o sources/Liste.o sources/evenement.o sources/Trajectoire.o
 
 
 
 all: jeu clean
 
-jeu: main.c $(fichier_o)
-	$(CC) $(Oflags) main.c $(fichier_o) $(Lflags) -o jeu -lpthread -lX11
+jeu: sources/main.c $(fichier_o)
+	$(CC) $(Oflags) sources/main.c $(fichier_o) $(Lflags) -o jeu -lpthread -lX11
 
-joueur.o: joueur.c joueur.h
-	$(CC) -c joueur.c -o joueur.o
+sources/joueur.o: sources/joueur.c sources/joueur.h
+	$(CC) -c sources/joueur.c -o sources/joueur.o
 
-utilitaire.o: utilitaire.c utilitaire.h
-	$(CC) -c utilitaire.c -o utilitaire.o
+sources/utilitaire.o: sources/utilitaire.c sources/utilitaire.h
+	$(CC) -c sources/utilitaire.c -o sources/utilitaire.o
 
-Projectile.o: Projectile.c Projectile.h
-	$(CC) -c Projectile.c -o Projectile.o
+sources/Projectile.o: sources/Projectile.c sources/Projectile.h
+	$(CC) -c sources/Projectile.c -o sources/Projectile.o
 
-env.o: env.c env.h
-	$(CC) -c env.c -o env.o
+sources/env.o: sources/env.c sources/env.h
+	$(CC) -c sources/env.c -o sources/env.o
 
-ennemi.o: ennemi.c ennemi.h
-	$(CC) -c ennemi.c -o ennemi.o
+sources/ennemi.o: sources/ennemi.c sources/ennemi.h
+	$(CC) -c sources/ennemi.c -o sources/ennemi.o
 
-Position.o: Position.c Position.h
-	$(CC) -c Position.c -o Position.o
+sources/Position.o: sources/Position.c sources/Position.h
+	$(CC) -c sources/Position.c -o sources/Position.o
 
-Hitbox.o: Hitbox.c Hitbox.h
-	$(CC) -c Hitbox.c -o Hitbox.o
+sources/Hitbox.o: sources/Hitbox.c sources/Hitbox.h
+	$(CC) -c sources/Hitbox.c -o sources/Hitbox.o
 
-Vecteur.o: Vecteur.c Vecteur.h
-	$(CC) -c Vecteur.c -o Vecteur.o
+sources/Vecteur.o: sources/Vecteur.c sources/Vecteur.h
+	$(CC) -c sources/Vecteur.c -o sources/Vecteur.o
 
-File.o: File.c File.h
-	$(CC) -c File.c -o File.o
+sources/File.o: sources/File.c sources/File.h
+	$(CC) -c sources/File.c -o sources/File.o
 
-Liste.o: Liste.c Liste.h
-	$(CC) -c Liste.c -o Liste.o
+sources/Liste.o: sources/Liste.c sources/Liste.h
+	$(CC) -c sources/Liste.c -o sources/Liste.o
 
-evenement.o: evenement.c evenement.h
-	$(CC) -c evenement.c -o evenement.o
+sources/evenement.o: sources/evenement.c sources/evenement.h
+	$(CC) -c sources/evenement.c -o sources/evenement.o
 
-Trajectoire.o: Trajectoire.c Trajectoire.h
-	$(CC) -c Trajectoire.c -o Trajectoire.o
+sources/Trajectoire.o: sources/Trajectoire.c sources/Trajectoire.h
+	$(CC) -c sources/Trajectoire.c -o sources/Trajectoire.o
 
 clean:
-	rm -f *.o *~
+	rm -f sources/*.o sources/*~
