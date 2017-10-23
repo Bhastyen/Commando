@@ -26,7 +26,19 @@ Hitbox* ajouter_collision(Hitbox* box1, Hitbox* box2);
 
 void deplacer_box(Hitbox* h, Pos* pos);
 
-int collision_box(Hitbox* box1, Hitbox* box2, double vitesse_x1, double vitesse_y1, double vitesse_x2, double vitesse_y2);
+int collision(Hitbox* h1, Hitbox* h2, double dx1, double dy1, double dx2, double dy2);
+
+int circleCollision(Hitbox* h1, Hitbox* h2);
+
+int rectCollision(Hitbox* h1, Hitbox* h2);
+
+int circleCollisionOnCircle(Hitbox* h1, Hitbox* h2);
+
+int rectCollisionOnRect(Hitbox* h1, Hitbox* h2);
+
+int circleCollisionOnRect(Hitbox* h1, Hitbox* h2);
+
+int rectCollisionOnCircle(Hitbox* h1, Hitbox* h2);
 
 Hitbox* supprimer_box(Hitbox* h);
 

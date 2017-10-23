@@ -64,6 +64,171 @@ void deplacer_box(Hitbox* box, Pos* pos){
 }
 
 
+int collision(Hitbox* h1, Hitbox* h2, double dx1, double dy1, double dx2, double dy2){
+    int i = 0;
+    int max;
+    double r, v;
+    double x1, y1, x2, y2;
+    Hitbox* h3, h4;
+    
+    
+    if (h1->taille_x >= h2->taille_x){
+        v = sqrt(dx1*dx1+dy1*dy1);
+        if (h2->type == CERCLE)
+            r = h2->taille_x;
+        else
+            r = h2->taille_x/2.0;
+    }else{
+        v = sqrt(dx2*dx2+dy2*dy2);
+        if (h2->type == CERCLE)
+            r = h2->taille_x;
+        else
+            r = h2->taille_x/2.0;
+    }
+    
+    max = 1/r*2*v;
+    
+    while (i<max){
+        // recuperePoint(h1->pos, dx1, dy1, &x1, &y1);
+        // recuperePoint(h2->pos, dx2, dy2, &x2, &y2);
+        
+        h3 = creer_box(creer_pos((x1+h1->camera->x), (y1+h1->camera->y)), h1->taille_x, h1->taille_y, h1->type);
+        h4 = creer_box(creer_pos((x2+h2->camera->x), (y2+h2->camera->y)), h2->taille_x, h2->taille_y, h2->type);
+    
+        if (collision_aux(h3, h4)){
+            return true;
+        }
+        
+        h3 = supprimer_box(h3);
+        h4 = supprimer_box(h4);
+        
+        i ++;
+    }
+    
+    
+    return false;
+    
+}
+
+
+int collision_aux(Hitbox* h1, Hitbox* h2){
+    
+    if (h1->type == CERCLE){
+        return circleCollision(h1, h2);
+    }else{
+        return rectCollision(h1, h2);
+    }
+
+}
+
+
+int circleCollision(Hitbox* h1, Hitbox* h2){
+    
+    if (h2->type == CERCLE){
+        return circleCollisionOnCircle(h1, h2);
+    }else{
+        return circleCollisionOnRect(h1, h2);
+    }
+
+}
+
+
+int rectCollision(Hitbox* h1, Hitbox* h2){
+    
+    if (h2->type == CERCLE){
+        return rectCollisionOnCircle(h1, h2);
+    }else{
+        return rectCollisionOnRect(h1, h2);
+    }
+
+}
+
+
+int circleCollisionOnCircle(Hitbox* h1, Hitbox* h2){
+    double x, y, x0, y0;
+    int max = 8;
+    int i = 0;
+    
+    while (i<max){
+        x = h1->pos->x + h1->taille_x*cos(i*(360/max)*3.14/180);
+        y = h1->pos->y + h1->taille_x*sin(i*(360/max)*3.14/180);
+        
+        x0 = h2->pos->x - x;
+        y0 = h2->pos->y - y;
+        
+        if (sqrt(x0*x0+y0*y0) < h2->taille_x){
+            return true;
+        }
+        
+        i++;
+    }
+    
+    
+    return false;
+
+}
+
+
+int rectCollisionOnRect(Hitbox* h1, Hitbox* h2){
+   double x1 = h1->pos->x, y1 = h1->pos->y;
+   double x2 = h1->pos->x+h1->taille_x, y2 = h1->pos->y;
+   double x3 = h1->pos->x, y3 = h1->pos->y+h1->taille_y;
+   double x4 = h1->pos->x+h1->taille_x, y4 = h1->pos->y+h1->taille_y;
+   
+   int i;
+   
+   
+   x_h2 = h2->pos->x;
+   y_h2 = h2->pos->y;
+      
+   if (x1 > x_h2 && x1 < (x_h2 + h2->taille_x) && y1 > y_h2 && y1 < (y_h2+h2->taille_y)){
+       return true;
+   }else if (x2 > x_h2 && x2 < (x_h2 + h2->taille_x) && y2 > y_h2 && y2 < (y_h2+h2->taille_y)){
+       return true;
+   }else if (x3 > x_h2 && x3 < (x_h2 + h2->taille_x) && y3 > y_h2 && y3 < (y_h2+h2->taille_y)){
+       return true;
+   }else if (x4 > x_h2 && x4 < (x_h2 + h2->taille_x) && y4 > y_h2 && y4 < (y_h2+h2->taille_y)){
+       return true;
+   }
+   
+   
+   return false;
+   
+}
+
+
+int circleCollisionOnRect(Hitbox* h1, Hitbox* h2){
+    double x, y, x0, y0;
+    int max = 8;
+    int i = 0;
+    
+    while (i<max){
+        x = h1->pos->x + h1->taille_x*cos(i*(360/max)*3.14/180);
+        y = h1->pos->y + h1->taille_x*sin(i*(360/max)*3.14/180);
+        
+        x_h2 = h2->pos->x;
+        y_h2 = h2->pos->y;
+        
+        if (x > x_h2 && x < (x_h2 + h2->taille_x) && y > y_h2 && y < (y_h2+h2->taille_y)){
+            return true;
+        }
+        
+        i++;
+    }
+    
+    
+    return false;
+
+}
+
+
+int rectCollisionOnCircle(Hitbox* h1, Hitbox* h2){
+
+    return circleCollisionOnRect(h2, h1);
+    
+}
+
+
 int collision_box(Hitbox* box1, Hitbox* box2, double vitesse_x1, double vitesse_y1, double vitesse_x2, double vitesse_y2){
 	double s1, s2, s3, s4, s5, s6, s7, s8, t1, t2, t3, t4, x1, x2, x, y1, y2, y, d;
 	Hitbox* h1 = box1, *h2;
