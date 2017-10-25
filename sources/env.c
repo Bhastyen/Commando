@@ -32,7 +32,7 @@ Env* creer_env(int x, int y, int valeur, int t_x1, int t_y1, int t_x2, int t_y2,
         e->y = y;
         e->valeur = valeur;
     
-        e->box = creer_box(creer_position(x*TAILLE_CASE + (TAILLE_CASE/2), y*TAILLE_CASE + (TAILLE_CASE/2)), TAILLE_CASE, TAILLE_CASE, CARRE);   
+        e->box = creer_box(creer_position(x*TAILLE_CASE + (TAILLE_CASE/2), y*TAILLE_CASE + (TAILLE_CASE/2)), TAILLE_CASE/2, TAILLE_CASE/2, CARRE);   
         e->suivant = NULL;
         
         return e;

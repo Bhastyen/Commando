@@ -28,7 +28,7 @@ Projectile* creer_projectile(Pos* pos, double angle){
     p->vitesse = 1.0*DT;
     p->acceleration = 0.0;
     
-    p->box = creer_box(p->pos, TAILLE_PROJECTILE, TAILLE_PROJECTILE, CERCLE);
+    p->box = creer_box(p->pos, TAILLE_PROJECTILE, TAILLE_PROJECTILE, CARRE);
     p->trajet = creer_trajectoire_tab(p->pos->x, p->pos->y, t);  //gen_tab_trajectoire(angle, 500.0, 3)
     p->suivant = NULL;
     
@@ -247,11 +247,13 @@ int fire_collision_on_border(Projectile* p, Env* e, double vitesse_x1, double vi
 
 int fire_collision_on_terrain(Projectile* p, Env* e, double vitesse_x1, double vitesse_y1, double vitesse_x2, double vitesse_y2){
     Env* e1 = e;
+    double dx_plus, dy_plus;
     
     while (e1 != NULL){
         
-        if (collision_box(p->box, e1->box, vitesse_x1, vitesse_y1, vitesse_x2, vitesse_y2)){
-            //proj->effect_collision();
+        if (collision(p->box, e1->box, vitesse_x1, vitesse_y1, vitesse_x2, vitesse_y2, &dx_plus, &dy_plus)){
+            // deplacer_proj(dx_plus, dy_plus);
+            // proj->effect_collision();
             return 1;
         }
         

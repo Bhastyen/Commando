@@ -150,7 +150,6 @@ void gere_tire(Joueur* j){
 
 void gestion_deplacement(Joueur* j, Env* e){
    Projectile* proj = NULL;
-   double dx_plus = 0.0, dy_plus = 0.0;
    double proj_vx = 0, proj_vy = 0;
    
    j->p = supprimer_proj(j->p);  // suppression des projs terminer

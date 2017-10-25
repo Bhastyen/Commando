@@ -24,7 +24,7 @@ Joueur* creer_joueur(Pos* set_pos){
   j->acceleration = 1.0;
   j->cadence_tire = clock();
 
-  j->box = creer_box(j->pos, TAILLE_JOUEUR, TAILLE_JOUEUR, CERCLE);
+  j->box = creer_box(j->pos, TAILLE_JOUEUR, TAILLE_JOUEUR, CARRE);
   j->vue = creer_vec(j->pos->x, j->pos->y, 0.0, TAILLE_JOUEUR+10.0);
   j->p = NULL;
 
@@ -153,11 +153,13 @@ int player_collision_on_border(Joueur* j, Env* e, double vitesse_x1, double vite
 
 int player_collision_on_terrain(Joueur* j, Env* e, double vitesse_x1, double vitesse_y1, double vitesse_x2, double vitesse_y2){
     Env* e1 = e;
-    int collision = 0;
+    int v_collision = 0;
+    double dx_plus, dy_plus;
     
     while (e1 != NULL){
-        collision = collision_box(j->box, e1->box, vitesse_x1, vitesse_y1, vitesse_x2, vitesse_y2);
-        if (collision){
+        v_collision = collision(j->box, e1->box, vitesse_x1, vitesse_y1, vitesse_x2, vitesse_y2, &dx_plus, &dy_plus);
+        if (v_collision){
+            // coller le joueur a l'environnement ici
             //j->effect_collision();
             return 1;
         }
